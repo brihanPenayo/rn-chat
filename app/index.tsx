@@ -1,10 +1,10 @@
-import * as React from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 
 const index = () => {
   return (
-    <View className="flex justify-center items-center bg-slate-200 text-center h-screen">
-      <Text>Hola mundo</Text>
+    <View className="flex justify-center items-center h-screen">
+      <ActivityIndicator size="large" color="gray" />
+      <Text className="mt-2">Cargando</Text>
     </View>
   );
 };
