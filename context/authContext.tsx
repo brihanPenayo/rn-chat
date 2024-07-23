@@ -8,13 +8,10 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: AuthContextProps) => {
   const [user, setUser] = useState<any>(null);
-  const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined);
+  const [isAuth, setIsAuth] = useState<boolean | undefined>(false);
 
   useEffect(() => {
     // todo-firebase
-    setTimeout(() => {
-      setIsAuth(true);
-    }, 3000);
   }, []);
 
   const logIn = async (email, password) => {

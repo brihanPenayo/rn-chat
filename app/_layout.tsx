@@ -1,5 +1,4 @@
 import { Slot, useRouter, useSegments } from "expo-router";
-import { View } from "react-native";
 import "../global.css";
 import { AuthProvider, useAuth } from "@/context/authContext";
 import { useEffect } from "react";
@@ -11,7 +10,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (typeof isAuth == "undefined") return;
-    const inApp = segment.includes("app");
+    const inApp = segment.includes("(app)");
     if (isAuth && !inApp) router.replace("home");
     else router.replace("/signIn");
   }, [isAuth]);
