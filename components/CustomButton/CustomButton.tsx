@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity } from "react-native";
+import { Pressable, Text, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -7,20 +7,20 @@ import {
 interface CustomButtonProps {
   text: string;
   outline?: boolean;
+  onPress: () => void;
 }
 
 const CustomButton = (props: CustomButtonProps) => {
-  const { text, outline = false } = props;
-  console.log(outline);
+  const { text, outline = false, onPress } = props;
   return (
-    <TouchableOpacity
-      activeOpacity={outline ? 0.5 : 0.75}
-      style={{ width: wp(85), height: hp(6) }}
+    <Pressable
+      onPress={onPress}
+      style={{ height: hp(6) }}
       className={`${
         outline
-          ? "border-indigo-600 bg-white"
-          : "border-indigo-600 bg-indigo-600"
-      } flex justify-center items-center rounded-md border-2`}
+          ? "border-indigo-600 bg-white active:bg-indigo-100"
+          : "border-indigo-600 bg-indigo-600 active:bg-indigo-800"
+      } flex w-full justify-center items-center rounded-xl border-2 transition-colors`}
     >
       <Text
         style={{ fontSize: hp(1.8) }}
@@ -30,7 +30,7 @@ const CustomButton = (props: CustomButtonProps) => {
       >
         {text}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
