@@ -3,15 +3,16 @@ import React, { forwardRef, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-interface CustomInputProps {
+export interface CustomInputProps {
   iconName: any;
   placeholderText: string;
   autoFocus?: boolean;
   type?: "text" | "numeric" | "email";
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   value?: string | undefined;
   id: string;
-  error: string;
+  error?: string;
+  errorText?: string;
 }
 
 const CustomInput = ({

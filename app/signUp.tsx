@@ -1,5 +1,8 @@
 import CustomButton from "@/components/CustomButton/CustomButton";
-import CustomInput from "@/components/CustomInput/CustomInput";
+import CustomInput, {
+  CustomInputProps,
+} from "@/components/CustomInput/CustomInput";
+import { useAuth } from "@/context/authContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View, Text, Alert } from "react-native";
@@ -10,16 +13,19 @@ import {
 
 const SignUp = () => {
   const router = useRouter();
+  const { register } = useAuth();
   const [data, setData] = useState<any>({
     email: "",
     password: "",
   });
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
-  const inputs = [
+  const inputs: CustomInputProps[] = [
     {
       iconName: "mail",
       placeholderText: "usuario@correo.com",
       autoFocus: true,
+      type: "email",
       id: "email",
       error: "",
       errorText: "Email invalido",
@@ -33,12 +39,17 @@ const SignUp = () => {
     },
   ];
 
+  const handleRegister = async () => {
+    setSubmitting(true);
+    const res = await register(data.email, data.password);
+    if (!res?.success) Alert.alert("Error", res?.msg);
+    setSubmitting(false);
+  };
   const buttons = [
     {
       text: "Registrarse",
-      onPress: () => {
-        router.replace("/signIn");
-      },
+      showLoading: submitting,
+      onPress: handleRegister,
     },
     {
       text: "Cancelar",

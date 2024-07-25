@@ -1,5 +1,8 @@
 import CustomButton from "@/components/CustomButton/CustomButton";
-import CustomInput from "@/components/CustomInput/CustomInput";
+import CustomInput, {
+  CustomInputProps,
+} from "@/components/CustomInput/CustomInput";
+import { useAuth } from "@/context/authContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -8,6 +11,7 @@ import {
   Alert,
   ScrollView,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 
 import {
@@ -16,18 +20,21 @@ import {
 } from "react-native-responsive-screen";
 
 const SignIn = () => {
+  const { logIn } = useAuth();
   const router = useRouter();
   const [data, setData] = useState<any>({
     email: "",
     password: "",
   });
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
-  const inputs = [
+  const inputs: CustomInputProps[] = [
     {
       iconName: "mail",
       placeholderText: "usuario@correo.com",
-      //   autoFocus: true,
+      autoFocus: true,
       id: "email",
+      type: "email",
       error: "",
       errorText: "Email invalido",
     },
@@ -40,13 +47,20 @@ const SignIn = () => {
     },
   ];
 
+  const handleLogIn = async () => {
+    setSubmitting(true);
+    const res = await logIn(data.email, data.password);
+    if (!res?.success) {
+      Alert.alert("Error", res?.msg);
+    }
+    setSubmitting(false);
+  };
+
   const buttons = [
     {
       text: "Iniciar Sesión",
-      onPress: () => {
-        Alert.alert("Iniciando sesión");
-        router.push("/(app)/home");
-      },
+      onPress: handleLogIn,
+      showLoading: submitting,
     },
     {
       text: "Registrarse",
@@ -64,8 +78,11 @@ const SignIn = () => {
   console.log("render");
 
   return (
-    <ScrollView>
-      <KeyboardAvoidingView behavior="position">
+    <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "position"}
+      >
         <View
           style={{ paddingHorizontal: wp(5) }}
           className="items-center gap-3"
