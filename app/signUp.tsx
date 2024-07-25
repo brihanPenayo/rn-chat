@@ -24,7 +24,7 @@ const SignUp = () => {
     {
       iconName: "mail",
       placeholderText: "usuario@correo.com",
-      autoFocus: true,
+      // autoFocus: true,
       type: "email",
       id: "email",
       error: "",
@@ -69,7 +69,7 @@ const SignUp = () => {
   return (
     <View
       style={{ paddingHorizontal: wp(5) }}
-      className="flex-1 justify-center items-center gap-3"
+      className="flex-1 justify-center bg-white items-center gap-3"
     >
       <View className="justify-center items-center mb-10">
         <Text

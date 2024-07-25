@@ -12,10 +12,6 @@ interface AuthContextProps {
   children: React.ReactNode;
 }
 
-interface FireBaseError {
-  message: string;
-}
-
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: AuthContextProps) => {

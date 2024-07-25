@@ -9,8 +9,7 @@ const Home = () => {
     await logOut();
   };
   return (
-    <View className="flex justify-center items-center h-full bg-red-600">
-      <StatusBar style="dark" />
+    <View className="flex justify-center items-center h-full">
       <Text className="text-6xl text-white">Home Screen</Text>
       <Button title="Cerrar Sesión" onPress={handleLogOut} />
     </View>

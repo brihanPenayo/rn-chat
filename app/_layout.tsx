@@ -2,6 +2,7 @@ import { Slot, Stack, useRouter, useSegments } from "expo-router";
 import "../global.css";
 import { AuthProvider, useAuth } from "@/context/authContext";
 import { useEffect } from "react";
+import { Menu, MenuProvider } from "react-native-popup-menu";
 
 const MainLayout = () => {
   const { isAuth } = useAuth();
@@ -13,23 +14,25 @@ const MainLayout = () => {
     console.log("Segmen:", segment[0]);
     const inApp = segment[0] == "(app)";
     if (isAuth && !inApp) router.replace("home");
-    else if (!isAuth) router.replace("/signIn");
+    else if (!isAuth) router.replace("signIn");
   }, [isAuth]);
 
   return (
-    <Stack>
-      <Stack.Screen name="signIn" options={{ headerShown: false }} />
-      <Stack.Screen name="signUp" options={{ headerShown: false }} />
-      <Stack.Screen name="(app)" options={{ headerShown: false }} />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="signIn" />
+      <Stack.Screen name="signUp" />
+      <Stack.Screen name="(app)" />
     </Stack>
   );
 };
 
 const _layout = () => {
   return (
-    <AuthProvider>
-      <MainLayout />
-    </AuthProvider>
+    <MenuProvider>
+      <AuthProvider>
+        <MainLayout />
+      </AuthProvider>
+    </MenuProvider>
   );
 };
 

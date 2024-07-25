@@ -32,7 +32,7 @@ const SignIn = () => {
     {
       iconName: "mail",
       placeholderText: "usuario@correo.com",
-      autoFocus: true,
+      // autoFocus: true,
       id: "email",
       type: "email",
       error: "",
@@ -78,7 +78,11 @@ const SignIn = () => {
   console.log("render");
 
   return (
-    <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+    <ScrollView
+      style={{ flex: 1 }}
+      className="bg-white"
+      keyboardShouldPersistTaps="handled"
+    >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "position"}
